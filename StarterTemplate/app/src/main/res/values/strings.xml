@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Starter Template</string>
+    <string name="settings">Settings</string>
+
+    <!--Common-->
+    <string name="internet_unavailable">Internet connection appears to be offline. Please try again later.</string>
+    <string name="retry">Retry</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="loading">Loading</string>
+    <string name="close">Close</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="later">Later</string>
+    <string name="auth_failure_title">Your session has expired</string>
+    <string name="auth_failure_content">Please re-login to continue.</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="open">Open</string>
+</resources>

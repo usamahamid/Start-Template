@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#e62b25</color>
+    <color name="colorPrimaryDark">#cf2621</color>
+    <color name="colorAccent">#e8403a</color>
+
+    <!-- Common Colors -->
+    <color name="grey_500">#969696</color>
+    <color name="grey_400">#e0e0e0</color>
+    <color name="grey_300">#eeeeee</color>
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+    <color name="divider_bg">#4D282828</color>
+
+    <!-- Custom Colors -->
+    <color name="colorAccentText">@color/white</color>
+    <color name="light_background">@color/grey_400</color>
+
+    <color name="progress_1">@color/colorPrimary</color>
+    <color name="progress_2">@color/colorPrimaryDark</color>
+    <color name="progress_3">@color/colorPrimary</color>
+    <color name="progress_4">@color/colorPrimaryDark</color>
+
+</resources>

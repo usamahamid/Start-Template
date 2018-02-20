@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Add valid tracking ID-->
+    <string name="ga_trackingId" translatable="false"> </string>
+
+    <!-- Enable automatic Activity measurement -->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!-- Enable automatic exception capture -->
+    <bool name="ga_reportUncaughtExceptions">true</bool>
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- The screen names that will appear in reports -->
+    <screenName name="com.starter.template.ui.splash.SplashActivity">
+        StarRate Splash
+    </screenName>
+
+</resources>

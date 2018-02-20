@@ -1,0 +1,140 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    def apkNamePrefix = "StarterTemplate"
+    def majorNumber = "1"
+    def minorNumber = "0"
+    def sprintNumber = "1"
+
+    compileSdkVersion 26
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.starter.template"
+        minSdkVersion 19
+        targetSdkVersion 26
+        multiDexEnabled true
+
+        versionCode java.lang.Integer.parseInt("" + getBuildNumber())
+        versionName getVersionName(majorNumber, minorNumber)
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        applicationVariants.all {
+            variant ->
+                variant.outputs.each { output ->
+                    def displayVersionName = versionName + "." + sprintNumber + "." +
+                            getBuildNumber()
+                    def modifiedApkName = apkNamePrefix + "-" + displayVersionName + "-" + variant.buildType.name + ".apk"
+                    output.outputFile = new File(output.outputFile.parent, modifiedApkName)
+                    buildConfigField("String", "displayVersionName", "\"" + displayVersionName + "\"")
+                }
+        }
+    }
+
+
+    if (project.hasProperty("app.signing")) {
+        apply from: project.property("app.signing");
+    }
+
+    buildTypes {
+        def CHARACTER = "Character"
+        def XPOSELEVEL = "exposeLevel"
+
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+            buildConfigField(CHARACTER, XPOSELEVEL, "'x'")
+            signingConfig signingConfigs.debug
+        }
+
+        beta {
+            applicationIdSuffix ".beta"
+            debuggable true
+            buildConfigField(CHARACTER, XPOSELEVEL, "null")
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            buildConfigField(CHARACTER, XPOSELEVEL, "null")
+            signingConfig signingConfigs.release
+
+            debuggable false
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "2g"
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Testing Dependencies
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // Support Libs
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    def SUPPORT_LIB_VERSION = "25.3.0";
+    compile "com.android.support:appcompat-v7:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:design:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:cardview-v7:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:recyclerview-v7:${SUPPORT_LIB_VERSION}"
+    compile "com.android.support:support-v4:${SUPPORT_LIB_VERSION}"
+
+
+    // Additional Libs
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.google.android.gms:play-services-analytics:10.2.4'
+    compile 'com.google.android.gms:play-services-auth:9.8.0'
+    compile("com.github.hotchemi:permissionsdispatcher:2.3.1") {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:2.3.1"
+}
+
+/* ---------------------------  Static Definitions  -------------------------- */
+
+static def getBuildNumber() {
+    def buildNumber = System.getenv("BUILD_NUMBER")
+    if (buildNumber == null) {
+        buildNumber = 1
+    }
+    // println "Build number is set to $buildNumber"
+    return buildNumber
+}
+
+static def getVersionName(majorNumber, minorNumber) {
+    def computedVersionName = majorNumber + "." + minorNumber
+    // println "Version name is set to $computedVersionName"
+    return computedVersionName
+}
